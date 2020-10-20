@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from . import forms
 from basicapp.models import User
+from basicapp.forms import NewUser
 # Create your views here.
 
 def index(req):
@@ -23,6 +24,18 @@ def form(req):
 
 def users(req):
 
+    form = NewUser()
+
+    if req.method == "POST":
+        form = NewUser(req.POST)
+
+        if form.is_valid():
+            form.save(commit=True)
+            return index(req)
+        else:
+            print("Error. Form is invalid")
+
     usersObj = User.objects.order_by('user_email')
-    users = {"users": usersObj}
+    users = {"users": usersObj, "form": form}
+
     return render(req, 'basicapp/users.html', context=users)

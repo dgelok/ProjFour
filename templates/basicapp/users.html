@@ -31,7 +31,12 @@
     <div class="joinForm">
 
         <h3>Join our user list!</h3>
-        
+        <form action="" method="POST">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <input type="submit" value="submit">
+
+        </form>
     </div>
 </body>
 </html>

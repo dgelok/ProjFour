@@ -1,5 +1,6 @@
 from django import forms
 from django.core import validators
+from basicapp.models import User
 
 # def check_for_z(value):
 #     if value[0].lower() != 'z':
@@ -40,3 +41,19 @@ class FormName(forms.Form):
     ## clean the entire form all at once
 
 
+class NewUser(forms.ModelForm):
+    firstname = forms.CharField(label="first name")
+    lastname = forms.CharField(label="last name")
+    email = forms.EmailField(required=True, label="email")
+    vmail = forms.EmailField(label="enter email again")
+
+    def clean(self):
+        all_clean = super().clean()
+        email = all_clean['email']
+        vmail = all_clean['vmail']
+        if email != vmail:
+            raise forms.ValidationError("Emails don't match!")
+    
+    class Meta:
+        model = User
+        fields = '__all__'
