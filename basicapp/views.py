@@ -23,5 +23,6 @@ def form(req):
 
 def users(req):
 
-    users = User.objects.order_by('user_email')
-    return render(req, 'basicapp/users.html', {'users':users})
+    usersObj = User.objects.order_by('user_email')
+    users = {"users": usersObj}
+    return render(req, 'basicapp/users.html', context=users)
