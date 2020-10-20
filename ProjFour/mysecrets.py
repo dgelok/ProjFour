@@ -1,0 +1,1 @@
+SECRET_KEY = '2g=mels%8&f4x1$70r-sayuc!bx*aqc3!0!5pgh9*j3!5(&a*o'
