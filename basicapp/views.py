@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from . import forms
+from basicapp.models import User
 # Create your views here.
 
 def index(req):
@@ -19,3 +20,8 @@ def form(req):
             print("text: "+ form.cleaned_data['text'])
 
     return render(req, 'basicapp/form.html',{'form':form})
+
+def users(req):
+
+    users = User.objects.order_by('user_email')
+    return render(req, 'basicapp/users.html', {'users':users})
